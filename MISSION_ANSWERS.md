@@ -474,3 +474,13 @@ Tuân thủ quy định tại [RULES.md](RULES.md#1-dùng-ai):
   - Đã phân tích bản chất nền tảng Cloud Deployment, lập bảng so sánh `railway.toml` vs `render.yaml` và giải thích chi tiết quy trình CI/CD của Google Cloud Run (`cloudbuild.yaml`).
   - Đã thực hành kiểm thử API Key và JWT Authentication, kiểm chứng thực tế mã lỗi 401, 200, và 429 khi chạm ngưỡng rate limit (10 req/min), phân tích cơ chế Admin bypass và kiến trúc 2 tầng của Cost Guard.
   - Đã thực hành scale 3 container Agent với Docker Compose và Nginx, chạy script `test_stateless.py` kiểm chứng kiến trúc Stateless với Redis, phân tích chi tiết sự khác biệt giữa Liveness probe (`/health`) và Readiness probe (`/ready`), cùng quy trình xử lý Graceful Shutdown (`SIGTERM`).
+
+**Part 6 (Final Project, `06-lab-complete/`):**
+- **Hỏi AI:** cách deploy Railway, `railway.toml` là gì, các bước deploy từ GitHub; lỗi build Railway (Dockerfile gốc là mẫu Go, log `go.mod file not found`); cách đặt Target port khi Railway tự cấp `PORT`; ý nghĩa một số log build/deploy.
+- **Nhận được:** hướng dẫn chọn Root Directory `/06-lab-complete` để Railway đọc đúng `railway.toml` và Dockerfile; giải thích fail-open của rate limiter và cost guard khi Redis không kết nối được.
+- **Tự sửa và tự kiểm tra:** tự chạy `check_production_ready.py` trên WSL và Windows nhiều lần; mục Graceful shutdown chỉ đạt khi chạy trên Linux (WSL) vì Windows không gửi được SIGTERM. Tự kiểm tra URL Railway bằng `curl` (`/health` 200, `/ready` 200, `/ask` 401/200), và tự dọn các chỗ TODO trong `config.py` và `.env.example`.
+
+**Part 7 (Benchmark & Observability, `06-lab-complete/benchmark-observability/`):**
+- **Hỏi AI:** giải thích Counter, Gauge, Histogram, p95/p99, SLO, cardinality; lý do dùng hai phiên bản agent v1/v2; cách viết job CI quality gate; cách đọc alert và trace trong Jaeger.
+- **Nhận được:** đáp án mẫu cho bổ sung KB (HPA, JWT) và workflow `eval.yml`; giải thích các khái niệm trên.
+- **Tự sửa và tự kiểm tra:** tự chạy load test, eval, scaling, thí nghiệm slow rate và 5 thí nghiệm phá hệ thống (A–E) bằng script; tự kiểm tra alert trên Prometheus API, trace trên Jaeger, và `promtool test rules`. Đã sửa `production/Dockerfile` (thêm `PYTHONUSERBASE`) sau khi tự phát hiện agent không tìm thấy `uvicorn` trong container. Số liệu trong `BENCHMARK_REPORT.md` lấy từ file JSON/CSV và log thật, không lấy từ AI.

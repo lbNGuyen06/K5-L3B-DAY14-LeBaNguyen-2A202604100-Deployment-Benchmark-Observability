@@ -66,4 +66,6 @@ Kết quả: PASS 12/12 (44/44 checks), gồm tiêu chí 12 "Public URL ready" v
 
 ## Screenshots
 
-Chưa có. Cần chụp: trang deployment trên Railway, service đang Active, và kết quả test `/health` trong `screenshots/` (tên file theo `DAY14_DELIVERY_CHECKLIST.md`).
+- [Dashboard Railway (project, service agent và Redis)](screenshots/dashboard.png)
+- [Service đang chạy (deployment Active)](screenshots/running.png)
+- [Kết quả test `/health`, `/ready`, `/ask`](screenshots/test.png)
